@@ -1,0 +1,46 @@
+docs/M4-init-agent-instructions-and-make-it-so.md
+  s_7f35b9a311173b::t_420382a96adb72 732,756,769,793,825,835,859,880,919,924,943,950-951,953
+  s_7f35b9a311173b::t_c5670875a38f0d 11,34,51,61-63,261,955
+  s_7f35b9a311173b::t_171ae55227ca54 9,24,30-32,56-57,267,299,331
+  s_7f35b9a311173b::t_12d920a968361f 28,266,323,436,624,657
+  s_7f35b9a311173b::t_abe034ee0a67d9 455-518,522,546,566,584,590,607,637,677,695,699,712,722,743,747,762,774
+docs/M1-package-and-cli-foundation.md
+  s_7f35b9a311173b::t_5d2c204343cbe6 42,337,483
+docs/M3-issue-lifecycle-branch-and-completion.md
+  s_7f35b9a311173b::t_a2358ed14e30b5 57
+docs/spec.md
+  s_7f35b9a311173b::t_526500267ebe1e 46-47,50,52,55,99,111,213-214,222-223,241
+  s_7f35b9a311173b::t_f53c8f6abb468f 240
+docs/M5-quality-review-and-pr-gates.md
+  s_7f35b9a311173b::t_228a867bf2d3c7 31,269
+  s_7f35b9a311173b::t_9358cb17f7218c 335,348-350,385-386,405-406,408,433,435,442-444,446,448,508,535-536,542,546,548
+  s_7f35b9a311173b::t_eda11f984be790 5,7,9,13-15,27-29,34,42,48-49,58,123,129,134,138,144,146,169,171,173-180,185,187-201,206,208,210
+docs/M6-legacy-migration-and-release-readiness.md
+  s_7f35b9a311173b::t_adb8c8e7e56fec 1-569
+AGENTS.md
+  s_4ad52511a58a0f::t_f22b9a34153ba3 71-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "186cf91cdababd594b68cc89421d06aa3e26fa36",
+  "prompts": {},
+  "sessions": {
+    "s_4ad52511a58a0f": {
+      "agent_id": {
+        "tool": "windsurf",
+        "id": "cc5f7d59-0075-4159-b122-260fc1568c4d",
+        "model": "Kimi K2.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    },
+    "s_7f35b9a311173b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e2728-ee2d-72a0-a26a-ba878d9ffe4c",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
