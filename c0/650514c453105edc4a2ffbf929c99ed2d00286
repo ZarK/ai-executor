@@ -1,0 +1,13 @@
+README.md
+  ai_agent 7-10,12-14,17-20,36,38
+src/redact.ts
+  ai_agent 1-21
+test/redact.test.js
+  ai_agent 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "c0650514c453105edc4a2ffbf929c99ed2d00286",
+  "prompts": {}
+}
