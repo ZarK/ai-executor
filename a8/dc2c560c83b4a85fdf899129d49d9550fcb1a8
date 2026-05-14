@@ -1,0 +1,9 @@
+src/commands/doctor.ts
+  ai_agent 2-6,9-11,13-127,129-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "a8dc2c560c83b4a85fdf899129d49d9550fcb1a8",
+  "prompts": {}
+}
