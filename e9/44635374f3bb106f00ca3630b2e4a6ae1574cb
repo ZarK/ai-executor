@@ -1,0 +1,11 @@
+test/config.test.js
+  ai_agent 1-36
+src/config.ts
+  ai_agent 1-249
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "e944635374f3bb106f00ca3630b2e4a6ae1574cb",
+  "prompts": {}
+}
