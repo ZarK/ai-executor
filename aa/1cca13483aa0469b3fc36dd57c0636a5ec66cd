@@ -1,0 +1,173 @@
+lib/commands/deps/fix.d.ts
+  ai_agent 1-9
+lib/commands/migrate/legacy.d.ts.map
+  ai_agent 1
+src/command_metadata.ts
+  ai_agent 1-483
+lib/commands/doctor.d.ts
+  ai_agent 1-13
+lib/commands/init.d.ts.map
+  ai_agent 1
+lib/commands/completion.d.ts
+  ai_agent 1-20
+src/commands/init.ts
+  ai_agent 1-12
+lib/commands/deps/blockers.js.map
+  ai_agent 1
+lib/commands/pr/gate.d.ts
+  ai_agent 1-9
+lib/commands/schema.js.map
+  ai_agent 1
+lib/index.d.ts
+  ai_agent 4-5
+src/commands/queue.ts
+  ai_agent 1-12
+src/commands/schema.ts
+  ai_agent 1-49
+lib/help.js.map
+  ai_agent 1
+lib/commands/deps/blockers.d.ts.map
+  ai_agent 1
+lib/hooks/command_not_found.js.map
+  ai_agent 1
+lib/index.js
+  ai_agent 5-6
+lib/index.js.map
+  ai_agent 1
+bin/run
+  ai_agent 3-9,11,13,15-17
+src/help.ts
+  ai_agent 1-155
+lib/commands/init.js
+  ai_agent 1-14
+lib/commands/start.js
+  ai_agent 1-14
+lib/commands/doctor.js.map
+  ai_agent 1
+lib/commands/labels/setup.d.ts.map
+  ai_agent 1
+lib/help.d.ts.map
+  ai_agent 1
+lib/commands/doctor.js
+  ai_agent 1-18
+lib/base_command.d.ts.map
+  ai_agent 1
+lib/commands/labels/setup.d.ts
+  ai_agent 1-9
+lib/commands/deps/fix.d.ts.map
+  ai_agent 1
+lib/commands/start.d.ts.map
+  ai_agent 1
+lib/commands/doctor.d.ts.map
+  ai_agent 1
+lib/commands/completion.js
+  ai_agent 1-109
+lib/command_metadata.js.map
+  ai_agent 1
+lib/commands/queue.js
+  ai_agent 1-14
+src/index.ts
+  ai_agent 4-5
+lib/commands/queue.d.ts.map
+  ai_agent 1
+lib/hooks/command_not_found.d.ts.map
+  ai_agent 1
+bin/dev
+  ai_agent 3-16,18-20
+lib/command_metadata.d.ts.map
+  ai_agent 1
+lib/commands/init.d.ts
+  ai_agent 1-9
+lib/commands/labels/setup.js
+  ai_agent 1-14
+lib/commands/pr/gate.js
+  ai_agent 1-14
+src/commands/labels/setup.ts
+  ai_agent 1-12
+lib/commands/migrate/legacy.d.ts
+  ai_agent 1-9
+lib/help.d.ts
+  ai_agent 1-21
+lib/commands/deps/blockers.d.ts
+  ai_agent 1-9
+lib/commands/queue.d.ts
+  ai_agent 1-9
+lib/commands/schema.d.ts.map
+  ai_agent 1
+lib/index.d.ts.map
+  ai_agent 1
+src/hooks/command_not_found.ts
+  ai_agent 1-39
+lib/commands/completion.js.map
+  ai_agent 1
+lib/base_command.js.map
+  ai_agent 1
+src/base_command.ts
+  ai_agent 1-196
+lib/hooks/command_not_found.d.ts
+  ai_agent 1-12
+src/commands/migrate/legacy.ts
+  ai_agent 1-12
+lib/command_metadata.d.ts
+  ai_agent 1-61
+lib/commands/deps/fix.js
+  ai_agent 1-14
+lib/commands/completion.d.ts.map
+  ai_agent 1
+src/commands/pr/gate.ts
+  ai_agent 1-12
+src/commands/deps/blockers.ts
+  ai_agent 1-12
+lib/commands/schema.js
+  ai_agent 1-47
+lib/hooks/command_not_found.js
+  ai_agent 1-35
+src/commands/doctor.ts
+  ai_agent 1-17
+lib/commands/labels/setup.js.map
+  ai_agent 1
+lib/command_metadata.js
+  ai_agent 1-436
+lib/commands/deps/blockers.js
+  ai_agent 1-14
+lib/commands/pr/gate.js.map
+  ai_agent 1
+src/commands/start.ts
+  ai_agent 1-12
+lib/base_command.d.ts
+  ai_agent 1-83
+lib/commands/migrate/legacy.js.map
+  ai_agent 1
+lib/commands/start.js.map
+  ai_agent 1
+lib/commands/migrate/legacy.js
+  ai_agent 1-14
+lib/commands/start.d.ts
+  ai_agent 1-9
+src/commands/completion.ts
+  ai_agent 1-114
+lib/base_command.js
+  ai_agent 1-161
+lib/commands/deps/fix.js.map
+  ai_agent 1
+lib/commands/pr/gate.d.ts.map
+  ai_agent 1
+lib/commands/queue.js.map
+  ai_agent 1
+lib/commands/init.js.map
+  ai_agent 1
+lib/commands/schema.d.ts
+  ai_agent 1-16
+package.json
+  ai_agent 59-63
+lib/help.js
+  ai_agent 1-141
+src/commands/deps/fix.ts
+  ai_agent 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "aa1cca13483aa0469b3fc36dd57c0636a5ec66cd",
+  "prompts": {}
+}
