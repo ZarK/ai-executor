@@ -1,0 +1,73 @@
+src/commands/labels/setup.ts
+  s_ab9555d7f2c398::t_9c4680adc553b3 37-42,44
+test/repo.test.js
+  s_ab9555d7f2c398::t_e38648ec22f066 46
+src/app/complete_work.ts
+  s_ab9555d7f2c398::t_dce5da18f27697 2,30
+src/commands/deps/chain.ts
+  s_ab9555d7f2c398::t_152b8dc02fc86f 7,10-12
+src/view.ts
+  s_ab9555d7f2c398::t_152b8dc02fc86f 47
+src/providers/github/github_work_codec.ts
+  s_ab9555d7f2c398::t_dce5da18f27697 17-23,25-26,28-33
+src/app/pr_body.ts
+  s_ab9555d7f2c398::t_310fd33b754118 240-246,256
+src/core/gate_evidence.ts
+  s_ab9555d7f2c398::t_dce5da18f27697 70-71,74,78-79
+src/start/index.ts
+  s_ab9555d7f2c398::t_af30772715ff82 106
+src/config/schema.ts
+  s_ab9555d7f2c398::t_152b8dc02fc86f 178-186,189
+src/commands/deps/blockers.ts
+  s_ab9555d7f2c398::t_152b8dc02fc86f 9,12-14
+src/app/next_work.ts
+  s_ab9555d7f2c398::t_152b8dc02fc86f 20
+src/config_policy.ts
+  s_ab9555d7f2c398::t_9c4680adc553b3 2,8,14,22,26,31-32
+src/branch_command.ts
+  s_ab9555d7f2c398::t_310fd33b754118 32
+test/github_work_provider.test.js
+  s_ab9555d7f2c398::t_e38648ec22f066 80,106,124,142,162
+src/audit.ts
+  s_ab9555d7f2c398::t_310fd33b754118 122,124
+test/deps.test.js
+  s_ab9555d7f2c398::t_e38648ec22f066 196,217
+src/commands/view.ts
+  s_ab9555d7f2c398::t_152b8dc02fc86f 12-16,80,108
+package.json
+  s_ab9555d7f2c398::t_af30772715ff82 58
+src/app/view_work.ts
+  s_ab9555d7f2c398::t_dce5da18f27697 5,21,26,65
+src/github.ts
+  s_ab9555d7f2c398::t_152b8dc02fc86f 124
+test/github.test.js
+  s_ab9555d7f2c398::t_e38648ec22f066 140-141
+test/view.test.js
+  s_ab9555d7f2c398::t_e38648ec22f066 37-38,67-68,102-103,129-130,151-152,174-175,205-206,228-229,259-260,306-307,371-372
+src/commands/doctor.ts
+  s_ab9555d7f2c398::t_310fd33b754118 374
+tsconfig.json
+  s_ab9555d7f2c398::t_152b8dc02fc86f 4-5
+src/commands/deps/blocking.ts
+  s_ab9555d7f2c398::t_152b8dc02fc86f 7,10-12
+test/run-node-tests.mjs
+  s_ab9555d7f2c398::t_af30772715ff82 1-32
+test/queue.test.js
+  s_ab9555d7f2c398::t_e38648ec22f066 118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "0e8ee07402007e80425682b0de0356cd6052e7df",
+  "prompts": {},
+  "sessions": {
+    "s_ab9555d7f2c398": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e3596-8678-7442-923e-0947a5342754",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
