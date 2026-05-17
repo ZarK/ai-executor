@@ -1,0 +1,21 @@
+test/pack-safety.test.js
+  s_ab9555d7f2c398::t_fd86e7492c71cf 24
+package.json
+  s_ab9555d7f2c398::t_fd86e7492c71cf 55,58-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "0552489e225301b0b98fed5d14b9de7bf140e8d5",
+  "prompts": {},
+  "sessions": {
+    "s_ab9555d7f2c398": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e3596-8678-7442-923e-0947a5342754",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
