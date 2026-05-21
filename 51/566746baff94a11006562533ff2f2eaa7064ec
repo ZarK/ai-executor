@@ -1,0 +1,35 @@
+docs/M4-init-agent-instructions-and-make-it-so.md
+  s_ab9555d7f2c398::t_4ee30356462282 69,71
+  s_ab9555d7f2c398::t_d63691227a29fb 201,207-208,452,697,738
+docs/M3-issue-lifecycle-branch-and-completion.md
+  s_ab9555d7f2c398::t_4ee30356462282 62,64
+AGENTS.md
+  s_ab9555d7f2c398::t_d63691227a29fb 28
+  s_ab9555d7f2c398::t_4ee30356462282 5,20,114
+docs/M2-github-labels-priority-and-dependencies.md
+  s_ab9555d7f2c398::t_4ee30356462282 49,51
+docs/spec.md
+  s_ab9555d7f2c398::t_4ee30356462282 11,13
+docs/M1-package-and-cli-foundation.md
+  s_ab9555d7f2c398::t_4ee30356462282 48,50
+docs/M5-quality-review-and-pr-gates.md
+  s_ab9555d7f2c398::t_4ee30356462282 67,69,213
+docs/M6-legacy-migration-and-release-readiness.md
+  s_ab9555d7f2c398::t_4ee30356462282 60,62,140,155,430,518
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "51566746baff94a11006562533ff2f2eaa7064ec",
+  "prompts": {},
+  "sessions": {
+    "s_ab9555d7f2c398": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e3596-8678-7442-923e-0947a5342754",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
