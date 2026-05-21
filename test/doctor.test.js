@@ -44,6 +44,7 @@ describe('doctor diagnostics', () => {
     assert.equal(policy.namingRules.installed, true);
     assert.equal(policy.implementationGuardrails.installed, true);
     assert.equal(policy.supplyChainSafety.installed, true);
+    assert.equal(policy.canonicalSupplyChainGuard.installed, true);
     assert.match(readFileSync(join(repo, 'AGENTS.md'), 'utf8'), /Naming rules:/);
   });
 
@@ -254,6 +255,24 @@ describe('doctor diagnostics', () => {
     assert.equal(policy.implementationGuardrails.installed, false);
     assert.equal(policy.supplyChainSafety.configured, true);
     assert.equal(policy.supplyChainSafety.installed, false);
+    assert.equal(policy.canonicalSupplyChainGuard.configured, true);
+    assert.equal(policy.canonicalSupplyChainGuard.installed, false);
+  });
+
+  it('requires the canonical guard reference for supply-chain instruction health', () => {
+    const repo = makeGitRepo();
+    writeFileSync(join(repo, 'AGENTS.md'), [
+      '<!-- BEGIN EXECUTOR MANAGED SECTION -->',
+      'Supply-chain safety requires package-age gates before adding or upgrading dependencies.',
+      '<!-- END EXECUTOR MANAGED SECTION -->',
+      '',
+    ].join('\n'));
+    const config = getDefaults();
+
+    const policy = buildInstructionPolicyDiagnostics(config, repo);
+
+    assert.equal(policy.supplyChainSafety.installed, true);
+    assert.equal(policy.canonicalSupplyChainGuard.installed, false);
   });
 
   it('accounts for instruction health and configured worktree policy in readiness', () => {
