@@ -1,0 +1,21 @@
+test/doctor.test.js
+  s_f9cdf5af515e9b::t_5eaf26adfa681d 12,279-284
+src/supply_chain_guard.ts
+  s_f9cdf5af515e9b::t_381fcccf467e88 5-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "da76a8a6eadb6c252f218a56527ade66e14ded89",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
