@@ -1,0 +1,38 @@
+src/commands/doctor.ts
+  s_f9cdf5af515e9b::t_dc2908af3885f1 238,243
+src/init_content.ts
+  s_f9cdf5af515e9b::t_4aeb4cbdeccf53 3,153-154
+  s_f9cdf5af515e9b::t_7bc8b34dc47066 47-49
+src/renderers/doctor_renderer.ts
+  s_f9cdf5af515e9b::t_751c22e5a05e4e 16
+test/init.test.js
+  s_f9cdf5af515e9b::t_383ac6131ae0e4 64-66,296-297,339
+src/doctor_diagnostics/index.ts
+  s_f9cdf5af515e9b::t_bd37d1e81eca5a 12,95-98,107
+test/gates.test.js
+  s_f9cdf5af515e9b::t_4a26e1bf25ea8e 57,211-212,214
+src/doctor_diagnostics/types.ts
+  s_f9cdf5af515e9b::t_a349af133fec1b 64
+test/doctor.test.js
+  s_f9cdf5af515e9b::t_4e390d2ab48909 47,258-275
+src/supply_chain_guard.ts
+  s_f9cdf5af515e9b::t_34577a7f8be94c 1-12
+src/gates/index.ts
+  s_f9cdf5af515e9b::t_29a9af7d236eb2 9,91,149,165
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "77cbf30fcfc3becf809f4f58c9fe796b1d201c61",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
