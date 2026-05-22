@@ -1,0 +1,19 @@
+package.json
+  s_f9cdf5af515e9b::t_dde84c2ecd47f9 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "7d986bb3f4e2bd83cd86c1bd43446d212841a521",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
