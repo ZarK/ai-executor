@@ -1,0 +1,25 @@
+src/app/pr_gate.ts
+  s_f9cdf5af515e9b::t_143c48098eb4e0 190,212-213
+src/providers/github/github_review_provider.ts
+  s_f9cdf5af515e9b::t_7362fed2fd51c7 62-68,248
+  s_f9cdf5af515e9b::t_194484316c7b17 56-57,239-243,247,537
+test/pr.test.js
+  s_f9cdf5af515e9b::t_677119d88ff508 186-189,197,421,441,445,449,451,454,464-472,477-485
+  s_f9cdf5af515e9b::t_cac93152b61f93 473-476
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "e64df746b5bccbb19645e680990fc731cc4da485",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
