@@ -16,9 +16,49 @@ function requestsJson(input: readonly string[]): boolean {
   return input.includes('--json') || input.includes('-j');
 }
 
+const USAGE_VALUE_FLAGS = new Set([
+  '--base-branch',
+  '--base-remote',
+  '--branch-naming',
+  '--from',
+  '--high-risk-package-age-days',
+  '--ignored-automation-author',
+  '--instruction',
+  '--missing-milestone',
+  '--package-age-days',
+  '--path',
+  '--priority-label',
+  '--review-agent',
+  '--review-request-text',
+  '--review-wait-minutes',
+  '--stage',
+  '--status-label',
+  '--tool',
+  '--ui-audit-app-launch',
+  '--ui-audit-target',
+]);
+
+function countRequiredArguments(input: readonly string[], commandParts: readonly string[]): number {
+  let count = 0;
+  for (let index = commandParts.length; index < input.length; index += 1) {
+    const token = input[index];
+    if (token === '--') {
+      count += input.length - index - 1;
+      break;
+    }
+    if (token.startsWith('--')) {
+      const [flag] = token.split('=', 1);
+      if (!token.includes('=') && USAGE_VALUE_FLAGS.has(flag)) index += 1;
+      continue;
+    }
+    if (token.startsWith('-')) continue;
+    count += 1;
+  }
+  return count;
+}
+
 function writeUsage(input: readonly string[]): number | undefined {
   const json = requestsJson(input);
-  const path = input.filter(token => !token.startsWith('-')).join(' ');
   const usages: Record<string, { usage: string; examples: string[]; human: string }> = {
     'branch suggest': {
       usage: 'aie branch suggest <issue>',
@@ -45,6 +85,11 @@ function writeUsage(input: readonly string[]): number | undefined {
       human: 'Usage: aie switch <issue> [--from <issue>]\nPause the current in-progress issue and start a target issue after queue, blocker, and repository safety checks. This command can mutate GitHub.\n',
     },
   };
+  const path = Object.keys(usages).sort((left, right) => right.length - left.length).find(command => {
+    const parts = command.split(' ');
+    return parts.every((part, index) => input[index] === part) && countRequiredArguments(input, parts) === 0;
+  });
+  if (!path) return undefined;
   const usage = usages[path];
   if (!usage) return undefined;
   if (json) process.stdout.write(`${JSON.stringify({ ok: true, command: path, usage: usage.usage, examples: usage.examples })}\n`);

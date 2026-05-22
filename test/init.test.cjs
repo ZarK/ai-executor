@@ -631,6 +631,7 @@ describe('init command metadata', () => {
     const prefixHelp = binRun(['help', 'init'], repo);
     const flagHelp = binRun(['init', '--help'], repo);
     const json = binRun(['init', '--json'], repo);
+    const jsonWithTool = binRun(['init', '--tool', 'all', '--json'], repo);
 
     assert.equal(missing.status, 0);
     assert.match(missing.stdout, /Usage: aie init <target>/);
@@ -642,6 +643,8 @@ describe('init command metadata', () => {
     assert.match(flagHelp.stdout, /Usage:/);
     assert.equal(json.status, 0);
     assert.equal(JSON.parse(json.stdout).usage, 'aie init <target> [--tool opencode|codex|claude-code|all] [--defaults] [--yes] [--dry-run] [--force] [--json]');
+    assert.equal(jsonWithTool.status, 0);
+    assert.equal(JSON.parse(jsonWithTool.stdout).usage, 'aie init <target> [--tool opencode|codex|claude-code|all] [--defaults] [--yes] [--dry-run] [--force] [--json]');
     assert.equal(existsSync(join(repo, 'aie.config.json')), false);
   });
 
