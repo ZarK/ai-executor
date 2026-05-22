@@ -9,10 +9,10 @@ import { GhExecutionError, GhRunResult, parseGhJson, redact, runGh } from '../..
 import { getRepositoryIdentity } from '../../repo';
 import type { ReviewProvider, ReviewProviderCapabilities } from '../review_provider';
 
-import type { CurrentGitHubReview, GitHubReviewProviderOptions, GitHubReviewPullRequest, GitHubReviewRequestTrigger, GitHubReviewSnapshot, LoginResponse, RawAuthor, RawComment, RawPrView, RawReview, RawReviewComment, RawReviewRequest, RawStatusCheck, RawThreadNode, RawThreadResponse } from './github_review_types';
+import type { CurrentGitHubReview, GitHubReviewProviderOptions, GitHubReviewPullRequest, GitHubReviewRequestTrigger, GitHubReviewSnapshot, LoginResponse, RawAuthor, RawComment, RawIssueComment, RawPrView, RawReview, RawReviewComment, RawReviewRequest, RawStatusCheck, RawThreadNode, RawThreadResponse } from './github_review_types';
 export type { CurrentGitHubReview, GitHubReviewProviderOptions, GitHubReviewPullRequest, GitHubReviewRequestTrigger, GitHubReviewSnapshot } from './github_review_types';
 
-const PR_VIEW_FIELDS = 'number,title,state,url,headRefOid,reviewDecision,mergeStateStatus,mergeable,isDraft,reviewRequests,reviews,latestReviews,comments,statusCheckRollup';
+const PR_VIEW_FIELDS = 'number,title,state,url,headRefOid,reviewDecision,mergeStateStatus,mergeable,isDraft,reviewRequests,latestReviews,statusCheckRollup';
 const CURRENT_PR_FIELDS = 'number,title,state,url,reviewDecision,mergeStateStatus,mergeable,isDraft';
 const MARKER_PREFIX = 'aie:pr-gate';
 
@@ -25,6 +25,8 @@ function isRawPrView(value: unknown): value is RawPrView {
 
 function isRawReviewCommentArray(value: unknown): value is RawReviewComment[] | RawReviewComment[][] { return Array.isArray(value) && value.every(item => isRecord(item) || (Array.isArray(item) && item.every(isRecord))); }
 
+function isRawIssueCommentArray(value: unknown): value is RawIssueComment[] | RawIssueComment[][] { return Array.isArray(value) && value.every(item => isRecord(item) || (Array.isArray(item) && item.every(isRecord))); }
+
 function isRawThreadResponse(value: unknown): value is RawThreadResponse { return isRecord(value); }
 
 function isLoginResponse(value: unknown): value is LoginResponse { return isRecord(value) && typeof value.login === 'string' && value.login !== ''; }
@@ -35,8 +37,26 @@ function ensureGhSuccess(operation: string, result: GhRunResult): void {
 
 function actorName(author: RawAuthor | null | undefined): string { return redact(author?.login ?? 'unknown'); }
 
+function sanitizeFeedbackText(text: string | undefined): string {
+  return (text ?? '')
+    .replace(/<!--\s*internal state start\s*-->[\s\S]*?<!--\s*internal state end\s*-->/gi, '')
+    .replace(/<details>\s*<summary>\s*Prompt for AI Agents[\s\S]*?<\/details>/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/Prompt for AI Agents[\s\S]*$/i, '');
+}
+
+function isNonActionableSummary(text: string | undefined): boolean {
+  const normalized = sanitizeFeedbackText(text).replace(/\s+/g, ' ').trim().toLowerCase();
+  if (normalized === '') return true;
+  if (normalized.includes('no actionable comments were generated')) return true;
+  if (normalized.includes('review in progress')) return true;
+  if (normalized.includes('currently processing new changes')) return true;
+  if (normalized.startsWith('**no issues found**') || normalized.startsWith('no issues found')) return true;
+  return false;
+}
+
 function summarize(text: string | undefined): string {
-  const normalized = redact((text ?? '').replace(/\s+/g, ' ').trim());
+  const normalized = redact(sanitizeFeedbackText(text).replace(/\s+/g, ' ').trim());
   if (normalized === '') return 'No body text supplied.';
   return normalized.length > 180 ? `${normalized.slice(0, 177)}...` : normalized;
 }
@@ -209,11 +229,11 @@ function feedback(raw: { comments: RawComment[]; latestReviews: RawReview[]; rev
   const items: ReviewFeedback[] = [];
   for (const review of raw.latestReviews) {
     const state = review.state ?? 'UNKNOWN';
-    if (state === 'CHANGES_REQUESTED' || state === 'COMMENTED') items.push({ source: 'review', author: actorName(review.author), state, summary: summarize(review.body), url: review.url ? redact(review.url) : null, trust: 'untrusted' });
+    if (state === 'CHANGES_REQUESTED' || (state === 'COMMENTED' && !isNonActionableSummary(review.body))) items.push({ source: 'review', author: actorName(review.author), state, summary: summarize(review.body), url: review.url ? redact(review.url) : null, trust: 'untrusted' });
   }
   for (const comment of raw.comments) {
     const body = comment.body ?? '';
-    if (!trustedMarkerComment(comment, raw.trustedMarkerAuthor) || !body.includes(`<!-- ${MARKER_PREFIX}:`)) items.push({ source: 'comment', author: actorName(comment.author), summary: summarize(comment.body), url: comment.url ? redact(comment.url) : null, state: null, trust: 'untrusted' });
+    if ((!trustedMarkerComment(comment, raw.trustedMarkerAuthor) || !body.includes(`<!-- ${MARKER_PREFIX}:`)) && !isNonActionableSummary(body)) items.push({ source: 'comment', author: actorName(comment.author), summary: summarize(comment.body), url: comment.url ? redact(comment.url) : null, state: null, trust: 'untrusted' });
   }
   for (const comment of raw.reviewComments) items.push({ source: 'review-comment', author: redact(comment.user?.login ?? 'unknown'), summary: summarize(comment.body), url: comment.html_url ? redact(comment.html_url) : null, state: null, trust: 'untrusted' });
   for (const thread of raw.unresolvedThreads) {
@@ -351,6 +371,11 @@ export class GitHubReviewProvider implements ReviewProvider {
     try {
       const repository = await getRepositoryIdentity(this.options);
       try {
+        rawPr.comments = await this.getIssueComments(repository.nameWithOwner, prNumber);
+      } catch (error: unknown) {
+        unavailable.push(`PR issue comments unavailable: ${error instanceof Error ? error.message : String(error)}`);
+      }
+      try {
         reviewComments = await this.getReviewComments(repository.nameWithOwner, prNumber);
       } catch (error: unknown) {
         unavailable.push(`Review comments unavailable: ${error instanceof Error ? error.message : String(error)}`);
@@ -366,7 +391,6 @@ export class GitHubReviewProvider implements ReviewProvider {
     let trustedMarkerAuthor: string | null = null;
     try { trustedMarkerAuthor = await this.currentLogin(); } catch { trustedMarkerAuthor = null; }
     const comments = rawPr.comments ?? [];
-    const reviews = rawPr.reviews ?? [];
     const latestReviews = rawPr.latestReviews ?? [];
     const reviewRequests = reviewRequestNames(rawPr.reviewRequests);
     return {
@@ -374,7 +398,7 @@ export class GitHubReviewProvider implements ReviewProvider {
       pr: normalizePr(rawPr),
       reviewRequests,
       commentsCount: comments.length,
-      reviewsCount: reviews.length,
+      reviewsCount: latestReviews.length,
       reviewCommentsCount: reviewComments.length,
       unresolvedThreadsCount: unresolvedThreads.length,
       unavailable,
@@ -423,6 +447,13 @@ export class GitHubReviewProvider implements ReviewProvider {
     const result = await runGh(['pr', 'view', String(prNumber), '--json', PR_VIEW_FIELDS], this.options);
     ensureGhSuccess(`gh pr view ${prNumber}`, result);
     return parseGhJson<RawPrView>(result.stdout, `gh pr view ${prNumber}`, isRawPrView);
+  }
+
+  private async getIssueComments(repoName: string, prNumber: number): Promise<RawComment[]> {
+    const result = await runGh(['api', `repos/${repoName}/issues/${prNumber}/comments`, '--method', 'GET', '-F', 'per_page=100', '--paginate', '--slurp'], this.options);
+    ensureGhSuccess(`gh api pull issue comments for PR ${prNumber}`, result);
+    const parsed = parseGhJson<RawIssueComment[] | RawIssueComment[][]>(result.stdout, `gh api pull issue comments for PR ${prNumber}`, isRawIssueCommentArray);
+    return parsed.flat().map(comment => ({ author: comment.user ?? null, body: comment.body, url: comment.html_url }));
   }
 
   private async getReviewComments(repoName: string, prNumber: number): Promise<RawReviewComment[]> {
