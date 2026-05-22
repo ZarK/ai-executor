@@ -1,0 +1,60 @@
+src/commands/pr.ts
+  s_f9cdf5af515e9b::t_81cdf13f13788a 10
+test/init.test.js
+  s_f9cdf5af515e9b::t_0c330715d06736 285,300-301,316
+src/app/pr_view.ts
+  s_f9cdf5af515e9b::t_e92f39035ad359 1-178
+test/schema.test.js
+  s_f9cdf5af515e9b::t_7c2bffc4fbf259 23,50
+src/providers/github/github_review_provider.ts
+  s_f9cdf5af515e9b::t_e164f0de06d4c0 12,15
+  s_f9cdf5af515e9b::t_776e8d85fd41f0 28-29,40-43,45-46,59
+  s_f9cdf5af515e9b::t_f611a56ee58850 48-51,54-57,232,236
+  s_f9cdf5af515e9b::t_aaaa68f031439a 44,52-53
+  s_f9cdf5af515e9b::t_d88ee98128cc60 374-377,401
+  s_f9cdf5af515e9b::t_e5ff7c168f5413 452-458
+test/pr.test.js
+  s_f9cdf5af515e9b::t_f73cc67c887205 449-468
+  s_f9cdf5af515e9b::t_850dead0a18397 196-211
+  s_f9cdf5af515e9b::t_ae593cd5d9f81d 685-686,695,698-701
+  s_f9cdf5af515e9b::t_80c08935539b75 175-185,187-195,212-226
+  s_f9cdf5af515e9b::t_5601e731045f16 10,13,55-62,68,75,87-88
+  s_f9cdf5af515e9b::t_b0a7828bd96628 271,430
+  s_f9cdf5af515e9b::t_2894bee5ae737e 186
+  s_f9cdf5af515e9b::t_ce17806b96dd12 764,770-774
+  s_f9cdf5af515e9b::t_6a2e47565e6acf 494-496,548-550,583,650
+src/app/pr_gate.ts
+  s_f9cdf5af515e9b::t_0c410750b2af4c 197,205,247,258
+src/init_content.ts
+  s_f9cdf5af515e9b::t_2ac9236203dc6f 134,209-210,326
+test/lifecycle.test.js
+  s_f9cdf5af515e9b::t_87935427ae8008 335
+src/pr/index.ts
+  s_f9cdf5af515e9b::t_d54a16ead34457 2-11
+src/command_metadata.ts
+  s_f9cdf5af515e9b::t_9fbc4dc149c4cc 87,100
+src/command_flag_details.ts
+  s_f9cdf5af515e9b::t_7ae1ae987c6452 127-131
+src/providers/github/github_review_types.ts
+  s_f9cdf5af515e9b::t_4b26c4f49f30c1 41
+src/command_catalog.ts
+  s_f9cdf5af515e9b::t_ea9bc0eae68c16 11,292-306
+src/commands/pr/view.ts
+  s_f9cdf5af515e9b::t_566e23907e7e0c 1-92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "67d74351822ede77b4c58be927120b37b983f937",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}
