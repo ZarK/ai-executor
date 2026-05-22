@@ -1,0 +1,21 @@
+package.json
+  s_f9cdf5af515e9b::t_d5c1b920afb9a6 45-46
+test/pack-safety.test.cjs
+  s_f9cdf5af515e9b::t_25857940658722 62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "f1c9f7719e1a7aca01dfb9ef8c5a824b561b8546",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
