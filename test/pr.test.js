@@ -211,6 +211,30 @@ describe('PR gate service', () => {
     assert.equal(result.actions.find(action => action.kind === 'wait').status, 'skipped');
   });
 
+  it('uses a comments-only fallback when issue comment fetch fails', async () => {
+    const config = getDefaults();
+    config.reviewAgents = ['@coderabbitai'];
+    const currentMarker = '<!-- aie:pr-gate:coderabbitai:abc123 -->';
+    const calls = [];
+    const exec = async args => {
+      calls.push(args);
+      if (args.join(' ') === `pr view 12 --json ${prViewFields}`) return { args, exitCode: 0, stdout: JSON.stringify(basePr()), stderr: '' };
+      if (args.join(' ') === 'pr view 12 --json comments') return { args, exitCode: 0, stdout: JSON.stringify({ comments: [{ author: { login: 'executor' }, body: `${currentMarker}\n@coderabbitai review`, url: 'https://github.com/example/repo/pull/12#issuecomment-1' }] }), stderr: '' };
+      if (args.join(' ') === 'repo view --json nameWithOwner,url') return { args, exitCode: 0, stdout: JSON.stringify({ nameWithOwner: 'example/repo', url: 'https://github.com/example/repo' }), stderr: '' };
+      if (args.join(' ') === 'api user') return { args, exitCode: 0, stdout: JSON.stringify({ login: 'executor' }), stderr: '' };
+      if (args[0] === 'api' && args[1] === 'repos/example/repo/issues/12/comments') return { args, exitCode: 1, stdout: '', stderr: 'temporary issue comment outage' };
+      if (args[0] === 'api' && args[1] === 'repos/example/repo/pulls/12/comments') return { args, exitCode: 0, stdout: JSON.stringify([]), stderr: '' };
+      if (args[0] === 'api' && args[1] === 'graphql') return { args, exitCode: 0, stdout: JSON.stringify(threadResponse()), stderr: '' };
+      return { args, exitCode: 1, stdout: '', stderr: `unexpected gh call: ${args.join(' ')}` };
+    };
+
+    const result = await runPrGate(config, { prNumber: 12, dryRun: true, exec });
+
+    assert.equal(result.unavailable.length, 0);
+    assert.equal(result.reviewers[0].requestedForHead, true);
+    assert.ok(calls.some(args => args.join(' ') === 'pr view 12 --json comments'));
+  });
+
   it('sanitizes hidden bot state from actionable feedback summaries', async () => {
     const config = getDefaults();
     config.reviewAgents = [];
