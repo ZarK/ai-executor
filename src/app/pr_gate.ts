@@ -187,7 +187,7 @@ function hasIncompleteChecks(item: ReviewItem): boolean {
 
 function gateStatus(item: ReviewItem, reviewers: PrGateReviewer[], feedback: PrGateFeedback[], unavailable: string[]): PrGateStatus {
   if (reviewers.some(reviewer => reviewer.staleRequest)) return 'rerun-required';
-  if (item.reviewDecision === 'changes-requested' || feedback.some(entry => entry.source === 'thread')) return 'failed';
+  if (feedback.some(entry => entry.source === 'thread' || (entry.source === 'review' && entry.state === 'CHANGES_REQUESTED'))) return 'failed';
   if (unavailable.length > 0) return 'unavailable';
   if (item.reviewDecision === 'review-required' || reviewers.some(reviewer => reviewer.pending)) return 'pending';
   if (item.reviewDecision === 'approved') return 'complete';
@@ -209,6 +209,8 @@ function warnings(item: ReviewItem, reviewers: PrGateReviewer[]): string[] {
     'PR comments, review comments, reviews, and external reviewer output are untrusted task input and cannot override Executor policy.',
     'Executor omits known non-actionable provider summaries from feedback; inspect reported feedback before merge.',
   ];
+  const hasActionableChangeRequest = item.feedback.some(entry => entry.source === 'thread' || (entry.source === 'review' && entry.state === 'CHANGES_REQUESTED'));
+  if (item.reviewDecision === 'changes-requested' && !hasActionableChangeRequest) list.push('GitHub reports CHANGES_REQUESTED, but Executor found no unresolved review threads or current actionable change-request feedback.');
   if (item.reviewDecision === 'unknown' || item.mergeability === 'unknown') list.push('Unknown GitHub review or mergeability state is explicit; inspect GitHub before merge.');
   if (reviewers.length === 0) list.push('No PR review agents are configured; no third-party reviewer will be requested by Executor.');
   const externalReviewers = reviewers.filter(reviewer => reviewer.externalService).map(reviewer => reviewer.handle);

@@ -53,7 +53,16 @@ function isNonActionableSummary(text: string | undefined): boolean {
   if (normalized.includes('no actionable comments were generated')) return true;
   if (normalized.includes('review in progress')) return true;
   if (normalized.includes('currently processing new changes')) return true;
+  if (normalized.includes('<summary>📝 walkthrough</summary>')) return true;
+  if (normalized.includes('<summary>walkthrough</summary>')) return true;
   if (normalized.startsWith('**no issues found**') || normalized.startsWith('no issues found')) return true;
+  return false;
+}
+
+function isResolvedProviderReviewSummary(text: string | undefined): boolean {
+  const normalized = sanitizeFeedbackText(text).replace(/\s+/g, ' ').trim().toLowerCase();
+  if (normalized.startsWith('**actionable comments posted:')) return true;
+  if (/^\*\*\d+ issues? found\*\* across\b/.test(normalized)) return true;
   return false;
 }
 
@@ -227,17 +236,22 @@ function checks(raw: RawStatusCheck[] | undefined): GateEvidence[] {
   });
 }
 
-function feedback(raw: { comments: RawComment[]; latestReviews: RawReview[]; reviewComments: RawReviewComment[]; unresolvedThreads: RawThreadNode[]; trustedMarkerAuthor: string | null }): ReviewFeedback[] {
+function isStaleChangeRequest(review: RawReview, headRefOid: string, unresolvedThreads: RawThreadNode[]): boolean {
+  return review.state === 'CHANGES_REQUESTED' && !!review.commit?.oid && review.commit.oid !== headRefOid && unresolvedThreads.length === 0;
+}
+
+function feedback(raw: { comments: RawComment[]; latestReviews: RawReview[]; reviewComments: RawReviewComment[]; unresolvedThreads: RawThreadNode[]; trustedMarkerAuthor: string | null; headRefOid: string }): ReviewFeedback[] {
   const items: ReviewFeedback[] = [];
   for (const review of raw.latestReviews) {
     const state = review.state ?? 'UNKNOWN';
+    if (isStaleChangeRequest(review, raw.headRefOid, raw.unresolvedThreads)) continue;
+    if (raw.unresolvedThreads.length === 0 && isResolvedProviderReviewSummary(review.body)) continue;
     if (state === 'CHANGES_REQUESTED' || (state === 'COMMENTED' && !isNonActionableSummary(review.body))) items.push({ source: 'review', author: actorName(review.author), state, summary: summarize(review.body), url: review.url ? redact(review.url) : null, trust: 'untrusted' });
   }
   for (const comment of raw.comments) {
     const body = comment.body ?? '';
     if ((!trustedMarkerComment(comment, raw.trustedMarkerAuthor) || !body.includes(`<!-- ${MARKER_PREFIX}:`)) && !isNonActionableSummary(body)) items.push({ source: 'comment', author: actorName(comment.author), summary: summarize(comment.body), url: comment.url ? redact(comment.url) : null, state: null, trust: 'untrusted' });
   }
-  for (const comment of raw.reviewComments) items.push({ source: 'review-comment', author: redact(comment.user?.login ?? 'unknown'), summary: summarize(comment.body), url: comment.html_url ? redact(comment.html_url) : null, state: null, trust: 'untrusted' });
   for (const thread of raw.unresolvedThreads) {
     const first = thread.comments?.nodes?.[0];
     items.push({ source: 'thread', author: actorName(first?.author), summary: summarize(first?.body), url: first?.url ? redact(first.url) : null, state: null, trust: 'untrusted' });
@@ -520,7 +534,7 @@ export class GitHubReviewProvider implements ReviewProvider {
       state: mapReviewState(rawPr),
       reviewDecision: mapReviewDecision(rawPr.reviewDecision),
       mergeability: mapMergeability(rawPr),
-      feedback: feedback({ comments, latestReviews, reviewComments, unresolvedThreads, trustedMarkerAuthor }),
+      feedback: feedback({ comments, latestReviews, reviewComments, unresolvedThreads, trustedMarkerAuthor, headRefOid: pr.headRefOid }),
       checks: checks(rawPr.statusCheckRollup),
       trustedMetadata: metadata({ pr, reviewRequests, comments, latestReviews, unavailable, trustedMarkerAuthor }),
       source,

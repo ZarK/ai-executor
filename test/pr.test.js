@@ -183,7 +183,10 @@ describe('PR gate service', () => {
       reviewDecision: 'APPROVED',
       mergeStateStatus: 'CLEAN',
       latestReviews: [{ author: { login: 'cubic-dev-ai' }, state: 'COMMENTED', body: '**No issues found** across 5 files\n\n<!-- cubic:attribution ignored -->' }],
-      comments: [{ author: { login: 'coderabbitai' }, body: '<!-- review in progress by coderabbit.ai -->\nNo actionable comments were generated.\n<!-- internal state start -->SECRET<!-- internal state end -->', url: 'https://github.com/example/repo/pull/12#issuecomment-1' }],
+      comments: [
+        { author: { login: 'coderabbitai' }, body: '<!-- review in progress by coderabbit.ai -->\nNo actionable comments were generated.\n<!-- internal state start -->SECRET<!-- internal state end -->', url: 'https://github.com/example/repo/pull/12#issuecomment-1' },
+        { author: { login: 'coderabbitai' }, body: '<details>\n<summary>📝 Walkthrough</summary>\n\n## Walkthrough\nGenerated summary only.\n</details>', url: 'https://github.com/example/repo/pull/12#issuecomment-2' },
+      ],
     });
     const { exec } = makePrExec({ prViews: [pr] });
 
@@ -191,7 +194,7 @@ describe('PR gate service', () => {
 
     assert.equal(result.status, 'complete');
     assert.equal(result.feedback.length, 0);
-    assert.equal(result.counts.comments, 1);
+    assert.equal(result.counts.comments, 2);
     assert.equal(result.counts.reviews, 1);
     assert.equal(result.actions.find(action => action.kind === 'wait').status, 'skipped');
     assert.match(result.nextAction, /no detected blockers/);
@@ -415,7 +418,7 @@ describe('PR gate service', () => {
     assert.match(result.nextAction, /PR head changed/);
   });
 
-  it('reports review comments and unresolved threads as feedback before merge', async () => {
+  it('reports unresolved threads as feedback before merge while counting review comments', async () => {
     const config = getDefaults();
     config.reviewAgents = [];
     const pr = basePr({
@@ -431,25 +434,24 @@ describe('PR gate service', () => {
     assert.equal(result.status, 'failed');
     assert.equal(result.counts.reviewComments, 1);
     assert.equal(result.counts.unresolvedThreads, 1);
-    assert.ok(result.feedback.some(item => item.source === 'review-comment'));
     assert.ok(result.feedback.some(item => item.source === 'thread'));
     assert.match(result.nextAction, /Inspect and address review feedback/);
   });
 
-  it('reports REST review comments without failing when no unresolved thread or change request exists', async () => {
+  it('counts resolved REST review comments without surfacing them as feedback', async () => {
     const config = getDefaults();
     config.reviewAgents = [];
     const reviewComments = [{ user: { login: 'reviewer' }, body: 'Historical line comment.', html_url: 'https://github.com/example/repo/pull/12#discussion_r1' }];
-    const { exec } = makePrExec({ prViews: [basePr({ reviewDecision: '' })], reviewComments });
+    const { exec } = makePrExec({ prViews: [basePr({ reviewDecision: '', mergeStateStatus: 'CLEAN' })], reviewComments });
 
     const result = await runPrGate(config, { prNumber: 12, dryRun: true, exec });
 
-    assert.equal(result.status, 'pending');
+    assert.equal(result.status, 'complete');
     assert.equal(result.counts.reviewComments, 1);
-    assert.ok(result.feedback.some(item => item.source === 'review-comment'));
+    assert.equal(result.feedback.length, 0);
   });
 
-  it('completes approved PRs while still reporting historical review feedback', async () => {
+  it('completes approved PRs while counting historical review comments', async () => {
     const config = getDefaults();
     config.reviewAgents = [];
     const reviewComments = [{ user: { login: 'reviewer' }, body: 'Resolved historical comment.', html_url: 'https://github.com/example/repo/pull/12#discussion_r1' }];
@@ -459,6 +461,28 @@ describe('PR gate service', () => {
 
     assert.equal(result.status, 'complete');
     assert.equal(result.counts.reviewComments, 1);
+    assert.equal(result.feedback.length, 0);
+  });
+
+  it('does not fail on stale changes-requested reviews when no threads remain', async () => {
+    const config = getDefaults();
+    config.reviewAgents = [];
+    const pr = basePr({
+      reviewDecision: 'CHANGES_REQUESTED',
+      mergeStateStatus: 'CLEAN',
+      latestReviews: [
+        { author: { login: 'coderabbitai' }, state: 'CHANGES_REQUESTED', body: '**Actionable comments posted: 1**' },
+        { author: { login: 'cubic-dev-ai' }, state: 'COMMENTED', body: '**1 issue found** across 5 files' },
+      ],
+      statusCheckRollup: [{ name: 'ci', status: 'COMPLETED', conclusion: 'SUCCESS' }],
+    });
+    const { exec } = makePrExec({ prViews: [pr] });
+
+    const result = await runPrGate(config, { prNumber: 12, dryRun: true, exec });
+
+    assert.equal(result.status, 'complete');
+    assert.equal(result.feedback.length, 0);
+    assert.ok(result.warnings.some(warning => warning.includes('GitHub reports CHANGES_REQUESTED')));
   });
 
   it('collects paginated review comments and unresolved review threads', async () => {
