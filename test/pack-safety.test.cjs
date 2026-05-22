@@ -42,6 +42,8 @@ describe('package publish surface safety', () => {
     assert.deepEqual(normalizeHelpArgs(['help']), ['--help']);
     assert.deepEqual(normalizeHelpArgs(['help', 'init']), ['init', '--help']);
     assert.deepEqual(normalizeHelpArgs(['init', 'help']), ['init', '--help']);
+    assert.deepEqual(normalizeHelpArgs(['init', '.', 'help']), ['init', '.', 'help']);
+    assert.deepEqual(normalizeHelpArgs(['unknown', 'help']), ['unknown', 'help']);
     assert.deepEqual(normalizeHelpArgs(['init', '.']), ['init', '.']);
   });
 
