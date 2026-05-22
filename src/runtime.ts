@@ -16,27 +16,17 @@ function requestsJson(input: readonly string[]): boolean {
   return input.includes('--json') || input.includes('-j');
 }
 
-const USAGE_VALUE_FLAGS = new Set([
-  '--base-branch',
-  '--base-remote',
-  '--branch-naming',
-  '--from',
-  '--high-risk-package-age-days',
-  '--ignored-automation-author',
-  '--instruction',
-  '--missing-milestone',
-  '--package-age-days',
-  '--path',
-  '--priority-label',
-  '--review-agent',
-  '--review-request-text',
-  '--review-wait-minutes',
-  '--stage',
-  '--status-label',
-  '--tool',
-  '--ui-audit-app-launch',
-  '--ui-audit-target',
-]);
+function createValueFlagNames(): ReadonlySet<string> {
+  const names = new Set<string>();
+  for (const command of EXECUTOR_COMMANDS) {
+    for (const flag of command.flags ?? []) {
+      if (flag.type !== 'boolean') names.add(`--${flag.name}`);
+    }
+  }
+  return names;
+}
+
+const USAGE_VALUE_FLAGS = createValueFlagNames();
 
 function countRequiredArguments(input: readonly string[], commandParts: readonly string[]): number {
   let count = 0;
