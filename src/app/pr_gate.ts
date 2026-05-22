@@ -181,12 +181,17 @@ function prFeedback(item: ReviewItem): PrGateFeedback[] {
     }));
 }
 
+function hasIncompleteChecks(item: ReviewItem): boolean {
+  return item.checks.some(check => check.result !== 'passed' && check.result !== 'skipped');
+}
+
 function gateStatus(item: ReviewItem, reviewers: PrGateReviewer[], feedback: PrGateFeedback[], unavailable: string[]): PrGateStatus {
   if (reviewers.some(reviewer => reviewer.staleRequest)) return 'rerun-required';
   if (item.reviewDecision === 'changes-requested' || feedback.some(entry => entry.source === 'thread')) return 'failed';
   if (unavailable.length > 0) return 'unavailable';
   if (item.reviewDecision === 'review-required' || reviewers.some(reviewer => reviewer.pending)) return 'pending';
   if (item.reviewDecision === 'approved') return 'complete';
+  if (reviewers.length === 0 && item.mergeability === 'mergeable' && !hasIncompleteChecks(item)) return 'complete';
   return 'pending';
 }
 

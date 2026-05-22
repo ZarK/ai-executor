@@ -211,6 +211,23 @@ describe('PR gate service', () => {
     assert.equal(result.actions.find(action => action.kind === 'wait').status, 'skipped');
   });
 
+  it('completes clean PRs without configured reviewers when checks pass', async () => {
+    const config = getDefaults();
+    config.reviewAgents = [];
+    config.reviewWaitMinutes = 10;
+    const pr = basePr({
+      reviewDecision: '',
+      mergeStateStatus: 'CLEAN',
+      statusCheckRollup: [{ name: 'ci', status: 'COMPLETED', conclusion: 'SUCCESS' }],
+    });
+    const { exec } = makePrExec({ prViews: [pr] });
+
+    const result = await runPrGate(config, { prNumber: 12, exec });
+
+    assert.equal(result.status, 'complete');
+    assert.match(result.nextAction, /no detected blockers/);
+  });
+
   it('uses a comments-only fallback when issue comment fetch fails', async () => {
     const config = getDefaults();
     config.reviewAgents = ['@coderabbitai'];
