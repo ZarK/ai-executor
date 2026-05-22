@@ -1,7 +1,9 @@
 const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
+const { join } = require('node:path');
 const { describe, it } = require('node:test');
 
+const { normalizeHelpArgs } = require('../dist/bin/run.js');
 const pkg = require('../package.json');
 const tsconfig = require('../tsconfig.json');
 
@@ -36,8 +38,15 @@ describe('package publish surface safety', () => {
     }
   });
 
+  it('preserves public help normalization forms', () => {
+    assert.deepEqual(normalizeHelpArgs(['help']), ['--help']);
+    assert.deepEqual(normalizeHelpArgs(['help', 'init']), ['init', '--help']);
+    assert.deepEqual(normalizeHelpArgs(['init', 'help']), ['init', '--help']);
+    assert.deepEqual(normalizeHelpArgs(['init', '.']), ['init', '.']);
+  });
+
   it('uses the final ESM runtime shape', () => {
-    const bin = readFileSync('bin/run', 'utf8');
+    const bin = readFileSync(join(__dirname, '..', 'bin', 'run'), 'utf8');
 
     assert.equal(pkg.type, 'module');
     assert.equal(tsconfig.compilerOptions.module, 'NodeNext');
