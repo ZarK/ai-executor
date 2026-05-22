@@ -17,11 +17,23 @@ describe('schema command', () => {
     const start = commands.find(command => command.name === 'start');
     const depsBlockers = commands.find(command => command.name === 'deps blockers');
     const depsReady = commands.find(command => command.name === 'deps ready');
+
+    assert.ok(init, 'Expected init command in registry');
+    assert.ok(start, 'Expected start command in registry');
+    assert.ok(depsBlockers, 'Expected deps blockers command in registry');
+    assert.ok(depsReady, 'Expected deps ready command in registry');
+
     const exactVersions = init.flags.find(flag => flag.name === 'exact-dependency-versions');
     const assignFlag = start.flags.find(flag => flag.name === 'assign');
     const commentFlag = start.flags.find(flag => flag.name === 'comment');
     const jsonFlag = depsReady.flags.find(flag => flag.name === 'json');
     const dryRunFlag = init.flags.find(flag => flag.name === 'dry-run');
+
+    assert.ok(exactVersions, 'Expected exact-dependency-versions flag on init');
+    assert.ok(assignFlag, 'Expected assign flag on start');
+    assert.ok(commentFlag, 'Expected comment flag on start');
+    assert.ok(jsonFlag, 'Expected json flag on deps ready');
+    assert.ok(dryRunFlag, 'Expected dry-run flag on init');
 
     assert.ok(commandNames.includes('deps blockers'));
     assert.ok(commandNames.includes('pr gate'));
