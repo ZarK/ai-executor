@@ -2,27 +2,26 @@ import type { RuntimeCommandContext, RuntimeCommandResult } from '@tjalve/qube-c
 import { getDefaults, loadConfig } from './config/index.js';
 import { runGh } from './gh.js';
 import { applyLabelPlan, computeLabelPlan, getDesiredLabels, parseGhLabelList, type LabelSpec } from './labels.js';
-import { commandFailure, flagEnabled, outputJson } from './runtime_result.js';
+import { commandFailure, readBooleanFlag, outputJson } from './runtime_result.js';
 
 export async function handleLabelsSetup(context: RuntimeCommandContext): Promise<RuntimeCommandResult> {
-  const dryRun = flagEnabled(context, 'dry-run');
-  const config = (await loadConfig()) || getDefaults();
-  let listResult: { stdout: string };
+  const dryRun = readBooleanFlag(context, 'dry-run');
   try {
-    listResult = await runGh(['label', 'list', '--json', 'name,color,description', '--limit', '1000']);
+    const config = (await loadConfig()) || getDefaults();
+    const listResult = await runGh(['label', 'list', '--json', 'name,color,description', '--limit', '1000']);
+    const plan = computeLabelPlan(parseGhLabelList(listResult.stdout), getDesiredLabels(config));
+    const hadChanges = plan.created.length > 0 || plan.updated.length > 0;
+    if (readBooleanFlag(context, 'json')) {
+      const applied = !dryRun && hadChanges;
+      if (applied) await applyLabelPlan(plan);
+      return { jsonStdout: outputJson({ ok: true, command: 'labels setup', dryRun, applied, created: plan.created, updated: plan.updated, unchanged: plan.unchanged, skipped: plan.skipped }) };
+    }
+    if (!dryRun && hadChanges) await applyLabelPlan(plan);
+    return { stdout: formatLabelsSetup(plan, dryRun, hadChanges) };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
-    return commandFailure(context, { ok: false, command: 'labels setup', dryRun, error: message }, message);
+    return commandFailure(context, { ok: false, command: 'labels setup', dryRun, error: message }, `Failed to run \`aie labels setup\`. Likely cause: ${message}. Next action: verify GitHub authentication, label permissions, and aie.config.json, then rerun \`aie labels setup --dry-run\`.`);
   }
-  const plan = computeLabelPlan(parseGhLabelList(listResult.stdout), getDesiredLabels(config));
-  const hadChanges = plan.created.length > 0 || plan.updated.length > 0;
-  if (flagEnabled(context, 'json')) {
-    const applied = !dryRun && hadChanges;
-    if (applied) await applyLabelPlan(plan);
-    return { jsonStdout: outputJson({ ok: true, command: 'labels setup', dryRun, applied, created: plan.created, updated: plan.updated, unchanged: plan.unchanged, skipped: plan.skipped }) };
-  }
-  if (!dryRun && hadChanges) await applyLabelPlan(plan);
-  return { stdout: formatLabelsSetup(plan, dryRun, hadChanges) };
 }
 
 function formatLabelsSetup(plan: ReturnType<typeof computeLabelPlan>, dryRun: boolean, hadChanges: boolean): string {

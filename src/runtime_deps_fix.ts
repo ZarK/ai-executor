@@ -4,7 +4,7 @@ import { getDefaults, loadConfig } from './config/index.js';
 import { configToExecutorPolicy } from './config_policy.js';
 import { computeStatusFixPlanFromWorkItems, configToWorkQueuePolicy, type StatusFixPlan } from './deps.js';
 import { createGitHubWorkProvider } from './providers/github/github_work_provider.js';
-import { flagEnabled, outputJson } from './runtime_result.js';
+import { commandFailure, readBooleanFlag, outputJson } from './runtime_result.js';
 
 interface StatusFixResult {
   issueNumber: number;
@@ -39,28 +39,34 @@ function mergeStatusFixPlanActions(plans: StatusFixPlan[], actionPlan: ActionPla
 }
 
 export async function handleDepsFix(context: RuntimeCommandContext): Promise<RuntimeCommandResult> {
-  const dryRun = flagEnabled(context, 'dry-run');
-  const config = (await loadConfig()) ?? getDefaults();
-  const provider = createGitHubWorkProvider();
-  const openItems = await provider.listOpenWorkItems();
-  const actionPlan = provider.planStatusSync(openItems, configToExecutorPolicy(config));
-  const plans = mergeStatusFixPlanActions(computeStatusFixPlanFromWorkItems(openItems, configToWorkQueuePolicy(config)), actionPlan);
-  const applied = dryRun ? [] : await provider.apply(actionPlan);
-  const failures = new Map<number, ActionResult>();
-  for (const result of applied) {
-    if (result.status === 'failed') {
-      const issueNumber = issueNumberFromActionResult(result);
-      if (issueNumber !== null) failures.set(issueNumber, result);
+  const dryRun = readBooleanFlag(context, 'dry-run');
+  try {
+    const config = (await loadConfig()) ?? getDefaults();
+    const provider = createGitHubWorkProvider();
+    const openItems = await provider.listOpenWorkItems();
+    const actionPlan = provider.planStatusSync(openItems, configToExecutorPolicy(config));
+    const plans = mergeStatusFixPlanActions(computeStatusFixPlanFromWorkItems(openItems, configToWorkQueuePolicy(config)), actionPlan);
+    const applied = dryRun ? [] : await provider.apply(actionPlan);
+    const failures = new Map<number, ActionResult>();
+    for (const result of applied) {
+      if (result.status === 'failed') {
+        const issueNumber = issueNumberFromActionResult(result);
+        if (issueNumber !== null) failures.set(issueNumber, result);
+      }
     }
+    const results = plans.map(plan => statusFixResult(plan, failures, dryRun));
+    const failureCount = results.filter(result => result.failed).length;
+    const summary = { ok: failureCount === 0, failureCount, failures: results.filter(result => result.failed), changedCount: results.filter(result => result.changed).length, skippedCount: results.filter(result => result.skipped).length };
+    if (readBooleanFlag(context, 'json')) {
+      if (!summary.ok) process.exitCode = 1;
+      return { jsonStdout: outputJson({ ok: summary.ok, command: 'deps fix', dryRun, failureCount: summary.failureCount, failures: summary.failures, plans: results }) };
+    }
+    return { stdout: formatDepsFix(results, summary, dryRun), exitCode: summary.ok ? 0 : 1 };
+  } catch (err: unknown) {
+    const cause = err instanceof Error ? err.message : String(err);
+    const message = `Failed to run \`aie deps fix\`. Likely cause: ${cause}. Next action: verify GitHub authentication, repository config, and label permissions, then rerun \`aie deps fix --dry-run\`.`;
+    return commandFailure(context, { ok: false, command: 'deps fix', dryRun, error: message }, message);
   }
-  const results = plans.map(plan => statusFixResult(plan, failures, dryRun));
-  const failureCount = results.filter(result => result.failed).length;
-  const summary = { ok: failureCount === 0, failureCount, failures: results.filter(result => result.failed), changedCount: results.filter(result => result.changed).length, skippedCount: results.filter(result => result.skipped).length };
-  if (flagEnabled(context, 'json')) {
-    if (!summary.ok) process.exitCode = 1;
-    return { jsonStdout: outputJson({ ok: summary.ok, command: 'deps fix', dryRun, failureCount: summary.failureCount, failures: summary.failures, plans: results }) };
-  }
-  return { stdout: formatDepsFix(results, summary, dryRun), exitCode: summary.ok ? 0 : 1 };
 }
 
 function statusFixResult(plan: StatusFixPlan, failures: Map<number, ActionResult>, dryRun: boolean): StatusFixResult {

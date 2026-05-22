@@ -29,7 +29,7 @@ import { formatReviewGate, parseReviewIssueNumber, runReviewGate } from './revie
 import { startIssue } from './start/index.js';
 import { switchIssue } from './switch/index.js';
 import { viewIssue } from './view.js';
-import { commandFailure, commandResult, flagEnabled, stringArg, stringFlag, stringListFlag } from './runtime_result.js';
+import { commandFailure, commandResult, readBooleanFlag, stringArg, stringFlag, stringListFlag } from './runtime_result.js';
 import { policyFromRuntimeFlags } from './runtime_init_policy.js';
 import { handleDepsFix } from './runtime_deps_fix.js';
 import { handleLabelsSetup } from './runtime_labels_setup.js';
@@ -92,9 +92,9 @@ async function handleStart(context: Parameters<RuntimeCommandHandler>[0]) {
   try {
     const result = await startIssue({
       selection,
-      dryRun: flagEnabled(context, 'dry-run'),
-      assign: !flagEnabled(context, 'assign'),
-      comment: !flagEnabled(context, 'comment'),
+      dryRun: readBooleanFlag(context, 'dry-run'),
+      assign: readBooleanFlag(context, 'assign', true),
+      comment: readBooleanFlag(context, 'comment', true),
     });
     return commandResult(context, result, formatStartHuman(result), result.ok ? 0 : 1);
   } catch (err: unknown) {
@@ -131,7 +131,7 @@ async function handleComplete(context: Parameters<RuntimeCommandHandler>[0]) {
     return commandFailure(context, { ok: false, command: 'complete', error: message }, message);
   }
   try {
-    const result = await completeIssue({ issueNumber, dryRun: flagEnabled(context, 'dry-run'), checkOnly: flagEnabled(context, 'check-only'), force: flagEnabled(context, 'force') });
+    const result = await completeIssue({ issueNumber, dryRun: readBooleanFlag(context, 'dry-run'), checkOnly: readBooleanFlag(context, 'check-only'), force: readBooleanFlag(context, 'force') });
     return commandResult(context, result, formatCompleteHuman(result), result.ok ? 0 : 1);
   } catch (err: unknown) {
     const cause = err instanceof Error ? err.message : String(err);
@@ -170,7 +170,7 @@ async function handleSwitch(context: Parameters<RuntimeCommandHandler>[0]) {
     return commandFailure(context, { ok: false, command: 'switch', error: message }, message);
   }
   try {
-    const result = await switchIssue({ targetIssueNumber, fromIssueNumber, dryRun: flagEnabled(context, 'dry-run'), assign: !flagEnabled(context, 'assign'), comment: !flagEnabled(context, 'comment') });
+    const result = await switchIssue({ targetIssueNumber, fromIssueNumber, dryRun: readBooleanFlag(context, 'dry-run'), assign: readBooleanFlag(context, 'assign', true), comment: readBooleanFlag(context, 'comment', true) });
     return commandResult(context, result, formatSwitchHuman(result), result.ok ? 0 : 1);
   } catch (err: unknown) {
     const cause = err instanceof Error ? err.message : String(err);
@@ -183,7 +183,7 @@ async function handleBranch(context: Parameters<RuntimeCommandHandler>[0], comma
   const issue = stringArg(context, 'issue');
   if (shouldShowBranchHelp(issue)) return commandResult(context, branchUsageJson(command, commandExamples(command)), branchUsage(command, commandExamples(command)));
   try {
-    const result = await runBranchCommand({ command, issueNumber: parseBranchIssue(issue ?? ''), dryRun: flagEnabled(context, 'dry-run') });
+    const result = await runBranchCommand({ command, issueNumber: parseBranchIssue(issue ?? ''), dryRun: readBooleanFlag(context, 'dry-run') });
     return commandResult(context, result, formatBranchResult(result), result.ok ? 0 : 1);
   } catch (err: unknown) {
     const message = branchCommandError(command, issue, err);
@@ -230,7 +230,7 @@ async function handleInit(context: Parameters<RuntimeCommandHandler>[0]) {
     ]);
   }
   try {
-    const result = await runInit({ target, tool: (stringFlag(context, 'tool') ?? 'opencode') as 'opencode' | 'codex' | 'claude-code' | 'all', dryRun: flagEnabled(context, 'dry-run'), force: flagEnabled(context, 'force'), policy: policyFromRuntimeFlags(context) });
+    const result = await runInit({ target, tool: (stringFlag(context, 'tool') ?? 'opencode') as 'opencode' | 'codex' | 'claude-code' | 'all', dryRun: readBooleanFlag(context, 'dry-run'), force: readBooleanFlag(context, 'force'), policy: policyFromRuntimeFlags(context) });
     return commandResult(context, result, formatInitHuman(result), result.ok ? 0 : 1);
   } catch (err: unknown) {
     const cause = err instanceof Error ? err.message : String(err);
@@ -264,7 +264,7 @@ async function handleAuditUi(context: Parameters<RuntimeCommandHandler>[0]) {
   }
   const loaded = await loadConfigFile();
   if (!loaded.ok) return configLoadFailure(context, 'audit ui', loaded, 'Fix aie.config.json, then run the UI audit helper again.');
-  const result = runUiAudit(loaded.config ?? getDefaults(), { issueNumber, repoRoot: loaded.root, dryRun: flagEnabled(context, 'dry-run'), prepare: flagEnabled(context, 'prepare'), check: flagEnabled(context, 'check') });
+  const result = runUiAudit(loaded.config ?? getDefaults(), { issueNumber, repoRoot: loaded.root, dryRun: readBooleanFlag(context, 'dry-run'), prepare: readBooleanFlag(context, 'prepare'), check: readBooleanFlag(context, 'check') });
   return commandResult(context, result, formatUiAudit(result));
 }
 
@@ -285,8 +285,9 @@ async function handleReviewGate(context: Parameters<RuntimeCommandHandler>[0]) {
   }
   const loaded = await loadConfigFile();
   if (!loaded.ok) return configLoadFailure(context, 'review gate', loaded, 'Fix aie.config.json, then run the review gate again.');
-  const result = runReviewGate(loaded.config ?? getDefaults(), { issueNumber, repoRoot: loaded.root, dryRun: flagEnabled(context, 'dry-run'), promptOnly: flagEnabled(context, 'prompt') });
-  return commandResult(context, result, flagEnabled(context, 'prompt') ? result.prompt : formatReviewGate(result));
+  const promptOnly = readBooleanFlag(context, 'prompt');
+  const result = runReviewGate(loaded.config ?? getDefaults(), { issueNumber, repoRoot: loaded.root, dryRun: readBooleanFlag(context, 'dry-run'), promptOnly });
+  return commandResult(context, result, promptOnly ? result.prompt : formatReviewGate(result));
 }
 
 async function handlePrView(context: Parameters<RuntimeCommandHandler>[0]) {
@@ -364,7 +365,7 @@ async function handlePrGate(context: Parameters<RuntimeCommandHandler>[0]) {
     const warnings: string[] = [];
     const result = await runPrGateService(loaded.config ?? getDefaults(), {
       prNumber,
-      dryRun: flagEnabled(context, 'dry-run'),
+      dryRun: readBooleanFlag(context, 'dry-run'),
       repoRoot: loaded.root,
       onBeforeMutate: message => {
         warnings.push(message);
@@ -427,7 +428,7 @@ export const RUNTIME_HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> =
     const loaded = await loadConfigFile();
     if (!loaded.ok) return configLoadFailure(context, 'gates plan', loaded, 'Fix aie.config.json, then run the gate plan again.');
     const stage = stringFlag(context, 'stage');
-    const result = buildGatePlan(loaded.config ?? getDefaults(), { stage: isGateStage(stage) ? stage : undefined, dryRun: flagEnabled(context, 'dry-run') });
+    const result = buildGatePlan(loaded.config ?? getDefaults(), { stage: isGateStage(stage) ? stage : undefined, dryRun: readBooleanFlag(context, 'dry-run') });
     return commandResult(context, result, formatGatePlan(result));
   },
   'gates status': async context => {
@@ -442,7 +443,7 @@ export const RUNTIME_HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> =
   'labels setup': handleLabelsSetup,
   migrate: topic(['Use `aie migrate map` to inspect legacy command mappings, or `aie migrate legacy --dry-run` to inspect legacy Executor state without mutation.', 'Migration planning preserves repository files, git history, branches, issue state, labels, and GitHub milestone assignments while reporting inventory and planned changes.']),
   'migrate legacy': async context => {
-    const plan = await runMigration({ dryRun: flagEnabled(context, 'dry-run'), apply: flagEnabled(context, 'apply'), force: flagEnabled(context, 'force'), instructionPaths: stringListFlag(context, 'instruction'), legacyPaths: stringListFlag(context, 'path'), cleanup: flagEnabled(context, 'cleanup'), installWrappers: flagEnabled(context, 'install-wrappers') });
+    const plan = await runMigration({ dryRun: readBooleanFlag(context, 'dry-run'), apply: readBooleanFlag(context, 'apply'), force: readBooleanFlag(context, 'force'), instructionPaths: stringListFlag(context, 'instruction'), legacyPaths: stringListFlag(context, 'path'), cleanup: readBooleanFlag(context, 'cleanup'), installWrappers: readBooleanFlag(context, 'install-wrappers') });
     return commandResult(context, plan, formatMigrationPlan(plan), plan.ok ? 0 : 1);
   },
   'migrate map': context => {
@@ -475,8 +476,9 @@ export const RUNTIME_HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> =
   repo: topic(['Use `aie repo prime --dry-run` to inspect repository readiness before issue execution.', '`aie repo prime` can create or update Executor labels and can write a minimal aie.config.json only with --yes. It never creates specs, GitHub milestones, issue batches, or agent instructions.']),
   'repo prime': async context => {
     const config = (await loadConfig()) || getDefaults();
-    const plan = await buildRepoPrimePlan({ config, dryRun: flagEnabled(context, 'dry-run'), yes: flagEnabled(context, 'yes') });
-    return commandResult(context, { ...plan, command: 'repo prime', dryRun: flagEnabled(context, 'dry-run') }, formatRepoPrimeHuman(plan, flagEnabled(context, 'dry-run')));
+    const dryRun = readBooleanFlag(context, 'dry-run');
+    const plan = await buildRepoPrimePlan({ config, dryRun, yes: readBooleanFlag(context, 'yes') });
+    return commandResult(context, { ...plan, command: 'repo prime', dryRun }, formatRepoPrimeHuman(plan, dryRun));
   },
   review: topic(['Use `aie review gate <issue> --prompt`, `aie review gate <issue> --dry-run`, or `aie review gate <issue> --json`.', 'Review helpers render prompts and evidence requirements; Executor never invokes host-only reviewers or treats review output as policy.']),
   'review gate': context => handleConfigCommand(context, 'review gate'),
