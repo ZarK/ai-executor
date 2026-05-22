@@ -1,0 +1,311 @@
+src/app/complete_work.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 5
+  s_f9cdf5af515e9b::t_909514eedb225c 1-4,6
+src/commands/repo.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/audit.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 5-6
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4
+src/renderers/status_renderer.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+bin/run
+  s_f9cdf5af515e9b::t_77b0d1f57013cf 3-5
+src/command_flag_details.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+test/run-node-tests.mjs
+  s_f9cdf5af515e9b::t_5ad307d5374f53 18
+src/queue/index.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+  s_f9cdf5af515e9b::t_909514eedb225c 2-7
+src/doctor_diagnostics/types.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 5
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1-4
+src/branch_command.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/core/branch_rules.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-6
+src/core/action_plan.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/providers/work_provider.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-3
+src/providers/github/github_work_codec.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-3
+src/init/legacy_state.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 5-8
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3-4
+src/commands/queue.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/commands/branch.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/gates/index.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+  s_f9cdf5af515e9b::t_909514eedb225c 4-9
+src/config_policy.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+  s_f9cdf5af515e9b::t_909514eedb225c 2-4
+src/commands/branch/create.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-4
+src/core/provider_source.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/doctor_diagnostics/index.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 5-6,9
+  s_f9cdf5af515e9b::t_909514eedb225c 4,7-8,10-14
+test/pack-safety.test.cjs
+  s_f9cdf5af515e9b::t_e3d4564c2d552e 1-44,48-58
+  s_f9cdf5af515e9b::t_cde32b988bb06b 45-47
+src/app/start_work.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-7
+src/commands/branch/suggest.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-4
+src/app/pre_start_policy.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-6,12,14
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1,13
+src/commands/deps/blockers.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-5
+src/commands/pr.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/config/index.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-4
+src/instruction_migration.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 3-6
+  s_f9cdf5af515e9b::t_0027e7173a48ea 2
+package.json
+  s_f9cdf5af515e9b::t_77b0d1f57013cf 15
+src/core/result.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/complete/index.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1,5
+  s_f9cdf5af515e9b::t_909514eedb225c 2-4,6-7
+src/init_content.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+src/start/index.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2,6,9-11,44,59
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+src/commands/deps/blocking.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+src/commands/deps/ready.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+src/commands/labels.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/config/defaults.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-5
+src/migrate/index.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4,9
+  s_f9cdf5af515e9b::t_909514eedb225c 5-8,10
+src/labels.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+  s_f9cdf5af515e9b::t_0027e7173a48ea 2
+src/config/load.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 5-6
+src/commands/schema.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/init/types.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3,7
+src/app/lifecycle_common.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1-2
+  s_f9cdf5af515e9b::t_909514eedb225c 3-13
+src/switch/index.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+  s_f9cdf5af515e9b::t_909514eedb225c 2,5,8-10,43,59
+src/renderers/init_renderer.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+src/app/status_service.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1-2,4-6
+  s_f9cdf5af515e9b::t_909514eedb225c 3,7-19
+src/migration_format.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/commands/deps/fix.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2,4-7
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/renderers/doctor_renderer.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+src/commands/pr/body.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2,4
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/deps.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4
+  s_f9cdf5af515e9b::t_909514eedb225c 1-3,5-6
+src/commands/start.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-4
+  s_f9cdf5af515e9b::t_0027e7173a48ea 5
+src/commands/branch/check.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-4
+src/app/next_work.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-3
+src/core/policy.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/providers/github/github_review_provider.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 9
+  s_f9cdf5af515e9b::t_909514eedb225c 1-8,10,12-13
+src/github.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/command_catalog.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 15-16
+src/command_metadata.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/commands/review/gate.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+  s_f9cdf5af515e9b::t_909514eedb225c 2,4
+src/commands/review.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/commands/gates.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/app/switch_work.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-6
+src/core/gate_evidence.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/providers/repository_provider.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-4
+src/commands/view.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-4
+src/commands/status.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-4
+src/view.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-9
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+src/lifecycle.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 4-5
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1-3
+src/providers/github/github_review_types.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-2
+src/providers/github/github_work_provider.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-8
+src/bin/run.ts
+  s_f9cdf5af515e9b::t_77b0d1f57013cf 1-22
+src/commands/migrate/legacy.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/app/view_work.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-3,5-6
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4
+src/commands/audit.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/config/schema.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-4
+src/core/review_item.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-6
+src/commands/doctor.ts
+  s_f9cdf5af515e9b::t_749b09bfd882e7 5,39,345
+  s_f9cdf5af515e9b::t_0027e7173a48ea 9-10,13,15,26-27,36
+  s_f9cdf5af515e9b::t_909514eedb225c 8,11-12,14,16,37
+src/commands/migrate/map.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/migration_diagnostics.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4
+  s_f9cdf5af515e9b::t_909514eedb225c 3
+src/commands/migrate.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/commands/pr/view.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+src/providers/review_provider.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-3
+src/app/pr_body.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1,4
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3,5-7
+src/commands/gates/plan.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3-4
+src/pr/index.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 10,27
+src/gate_config.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+src/commands/deps/chain.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+src/commands/init.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4-6
+  s_f9cdf5af515e9b::t_909514eedb225c 3,7
+src/commands/pr/gate.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2,4
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/commands/deps.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/legacy_file_migration.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/app/pr_gate.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+  s_f9cdf5af515e9b::t_909514eedb225c 2-5
+src/init/index.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 3-6,8-11
+  s_f9cdf5af515e9b::t_0027e7173a48ea 2,7
+src/app/lifecycle_services.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-8
+src/repo/index.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 5-11
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4
+src/core/work_item.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-2
+src/commands/deps/blocked.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+src/commands/labels/setup.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+  s_f9cdf5af515e9b::t_909514eedb225c 2,4-6
+src/branch.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-4,6-12
+  s_f9cdf5af515e9b::t_0027e7173a48ea 5
+src/renderers/lifecycle_renderer.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1-3
+src/renderers/repo_renderer.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+src/config/types.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+src/commands/next.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/core/queue_rules.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-3
+src/commands/complete.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+  s_f9cdf5af515e9b::t_909514eedb225c 2,4
+src/app/pr_view.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1-4
+src/providers/local/local_git_provider.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 4-10
+src/review.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 4-5
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3
+src/commands/audit/ui.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 2
+  s_f9cdf5af515e9b::t_909514eedb225c 3-4
+src/commands/repo/prime.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3-4
+  s_f9cdf5af515e9b::t_909514eedb225c 2,5
+src/commands/gates/status.ts
+  s_f9cdf5af515e9b::t_0027e7173a48ea 3-4
+  s_f9cdf5af515e9b::t_909514eedb225c 2
+src/commands/deps/graph.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+src/init_renderer.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+  s_f9cdf5af515e9b::t_0027e7173a48ea 1
+src/renderers/view_renderer.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 1
+tsconfig.json
+  s_f9cdf5af515e9b::t_77b0d1f57013cf 4-5
+src/commands/switch.ts
+  s_f9cdf5af515e9b::t_909514eedb225c 2-3
+  s_f9cdf5af515e9b::t_0027e7173a48ea 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "89b53d8d475e86973b6a958f4a9cc1ade134b475",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
