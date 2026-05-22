@@ -1,0 +1,75 @@
+test/pr.test.cjs
+  s_f9cdf5af515e9b::t_3411a7d4c532fc 834-849
+docs/spec.md
+  s_f9cdf5af515e9b::t_5dad2d8a85db60 373
+  s_f9cdf5af515e9b::t_9659ba7ed2e2b7 371
+src/doctor.ts
+  s_f9cdf5af515e9b::t_b66968297dbf6a 1-6,14-22,25-32,35-37,39-153,155-183,185-196,198-204,206-318,320-395,397
+  s_f9cdf5af515e9b::t_3cf874bb61a197 7-13,23-24,33-34,38,154,184,197,205,319,396
+src/runtime_deps_fix.ts
+  s_f9cdf5af515e9b::t_b04ecdbebe3d62 9,20-47,58,86,91,106
+test/lifecycle.test.cjs
+  s_f9cdf5af515e9b::t_4a27ecf60a8def 310-324
+  s_f9cdf5af515e9b::t_e1d5f139322174 348
+test/init.test.cjs
+  s_f9cdf5af515e9b::t_5d4306b7f36c52 603-618
+src/runtime_handlers.ts
+  s_f9cdf5af515e9b::t_00fd00af681b2d 13
+test/branch.test.cjs
+  s_f9cdf5af515e9b::t_b1962896e64160 353-364
+test/schema.test.cjs
+  s_f9cdf5af515e9b::t_ccac1a10ec1556 75
+  s_f9cdf5af515e9b::t_4eec53eb266ec2 52,67-71,74,76-86,88-93,95-115,117-137
+  s_f9cdf5af515e9b::t_e5ed3044fd986c 94
+  s_f9cdf5af515e9b::t_787c49e1360953 87
+test/review.test.cjs
+  s_f9cdf5af515e9b::t_e4d79371aa361c 196-200
+test/labels.test.cjs
+  s_f9cdf5af515e9b::t_e1d5f139322174 61
+  s_f9cdf5af515e9b::t_5a37a579c89567 49-56
+src/command_definition.ts
+  s_f9cdf5af515e9b::t_496ebdb5811938 5,176-180
+test/complete.test.cjs
+  s_f9cdf5af515e9b::t_241e17b9c4e0ca 175-181
+test/switch.test.cjs
+  s_f9cdf5af515e9b::t_3313a16494e5e7 378-386
+test/gates.test.cjs
+  s_f9cdf5af515e9b::t_f4fa8bfb7b2907 280-284
+test/deps.test.cjs
+  s_f9cdf5af515e9b::t_e1d5f139322174 231
+  s_f9cdf5af515e9b::t_d0fa6d732dbc4d 6-10,13-19,311-312,321-322
+test/start.test.cjs
+  s_f9cdf5af515e9b::t_46e3e03f69bf90 344-351
+test/pack-safety.test.cjs
+  s_f9cdf5af515e9b::t_6d8266001e4431 64,66
+test/view.test.cjs
+  s_f9cdf5af515e9b::t_15af24ee0cf47e 385-392,398-399
+test/status.test.cjs
+  s_f9cdf5af515e9b::t_4f604bd334052a 250-251,253-254,256-257
+test/doctor.test.cjs
+  s_f9cdf5af515e9b::t_e1d5f139322174 11
+docs/M1-package-and-cli-foundation.md
+  s_f9cdf5af515e9b::t_a453a9eaa0ee22 66,72
+test/audit.test.cjs
+  s_f9cdf5af515e9b::t_399f7e7bfa5eaa 212,215-220
+test/repo.test.cjs
+  s_f9cdf5af515e9b::t_0936c2f63e47db 195-205,209-210
+src/runtime_schema.ts
+  s_f9cdf5af515e9b::t_fdcea0d79396ca 2,4,6,9,11-28,32-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "8de1f3b0118fc9a0f8a9ca12821682527e039da2",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
