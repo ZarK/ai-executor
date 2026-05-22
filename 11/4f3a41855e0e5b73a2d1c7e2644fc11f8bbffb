@@ -1,0 +1,31 @@
+src/runtime_labels_setup.ts
+  s_f9cdf5af515e9b::t_f09fc7029ecc77 5,8,10-20,23
+test/pack-safety.test.cjs
+  s_f9cdf5af515e9b::t_fb008d52a77e9e 48-49
+src/bin/run.ts
+  s_f9cdf5af515e9b::t_fb008d52a77e9e 15-22,29
+  s_f9cdf5af515e9b::t_f09fc7029ecc77 10,28
+src/runtime_handlers.ts
+  s_f9cdf5af515e9b::t_321f974d9b2925 32
+  s_f9cdf5af515e9b::t_f09fc7029ecc77 95-97,134,173,186,233,267,288-290,368,431,446,479-481
+src/runtime_result.ts
+  s_f9cdf5af515e9b::t_f09fc7029ecc77 3-9,40,48
+src/runtime_deps_fix.ts
+  s_f9cdf5af515e9b::t_f09fc7029ecc77 7,42-55,57-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "114f3a41855e0e5b73a2d1c7e2644fc11f8bbffb",
+  "prompts": {},
+  "sessions": {
+    "s_f9cdf5af515e9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e4a6f-2537-75c3-a77a-2445e04fe81b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
