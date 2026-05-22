@@ -1,7 +1,9 @@
 const assert = require('node:assert/strict');
+const { readFileSync } = require('node:fs');
 const { describe, it } = require('node:test');
 
 const pkg = require('../package.json');
+const tsconfig = require('../tsconfig.json');
 
 describe('package publish surface safety', () => {
   it('does not declare any install lifecycle scripts', () => {
@@ -32,6 +34,17 @@ describe('package publish surface safety', () => {
         `Package files must not expose repository-only path ${entry}`
       );
     }
+  });
+
+  it('uses the final ESM runtime shape', () => {
+    const bin = readFileSync('bin/run', 'utf8');
+
+    assert.equal(pkg.type, 'module');
+    assert.equal(tsconfig.compilerOptions.module, 'NodeNext');
+    assert.equal(tsconfig.compilerOptions.moduleResolution, 'NodeNext');
+    assert.match(bin, /dist\/bin\/run\.js/);
+    assert.doesNotMatch(bin, /@oclif\/core/);
+    assert.doesNotMatch(bin, /require\(/);
   });
 
   it('keeps dependencies minimal and exact', () => {
