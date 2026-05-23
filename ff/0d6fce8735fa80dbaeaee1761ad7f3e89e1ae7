@@ -1,0 +1,57 @@
+test/pr.test.cjs
+  s_0edba3a82f4020::t_02fd5190f7321c 13
+  s_0edba3a82f4020::t_b31c8a19866b5a 646-666
+  s_0edba3a82f4020::t_c9f074f4a76de6 263-281
+  s_0edba3a82f4020::t_3efdef00abe703 598-599,675-676,713-714,744,761-762,788-789,813
+  s_0edba3a82f4020::t_d0adf2eb7bf24c 67-82,102-105
+  s_0edba3a82f4020::t_f049490a2858d2 83-86
+src/app/issue_checklist.ts
+  s_0edba3a82f4020::t_9646a2aff4be97 1-95
+src/app/pr_gate.ts
+  s_0edba3a82f4020::t_ee3034bc07be82 248,254,292
+  s_0edba3a82f4020::t_d1010fc9e07a1d 2,79,190-194,196,205,207,249-253,255-259,291,293-294,306,308,318,338-343
+src/providers/github/github_review_provider.ts
+  s_0edba3a82f4020::t_704a2819d2b9f9 15,131,136-137,422
+  s_0edba3a82f4020::t_645905547b45c9 132-135
+src/command_flag_details.ts
+  s_0edba3a82f4020::t_fae2a07f3b4085 136-144
+test/schema.test.cjs
+  s_0edba3a82f4020::t_4b45ccd624049b 40
+  s_0edba3a82f4020::t_ebf6b4d477399f 68,105-109
+src/command_definition.ts
+  s_0edba3a82f4020::t_05163a051b7250 102,124
+src/checklist.ts
+  s_0edba3a82f4020::t_c7f6dc698132d3 1-45,52,54-75,78,80-110
+  s_0edba3a82f4020::t_4ad3cc28b4e218 46-51,53
+  s_0edba3a82f4020::t_bfd10c2a53d78e 76-77,79
+src/providers/github/github_review_types.ts
+  s_0edba3a82f4020::t_639c2fa9465245 21,40,42
+src/command_catalog.ts
+  s_0edba3a82f4020::t_002fe64fa33425 3,131-152
+src/runtime_handlers.ts
+  s_0edba3a82f4020::t_044394107ee5a0 3,33,144-188,436-437
+src/app/pr_body.ts
+  s_0edba3a82f4020::t_64122bd60ac907 3,18,86,165-173,196,216,220,231,242-244,268-273,303,307,309,312
+test/checklist.test.cjs
+  s_0edba3a82f4020::t_332285b26c7f93 1-85,89-91
+  s_0edba3a82f4020::t_28ea57bf9b9827 86,88
+  s_0edba3a82f4020::t_9956109cb160d8 87
+src/providers/github/github_work_codec.ts
+  s_0edba3a82f4020::t_1fc56733838fe2 2,24,28-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "ff0d6fce8735fa80dbaeaee1761ad7f3e89e1ae7",
+  "prompts": {},
+  "sessions": {
+    "s_0edba3a82f4020": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e543c-fbc9-7f42-a75f-37045c3013d6",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
