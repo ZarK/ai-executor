@@ -1,0 +1,35 @@
+AGENTS.md
+  s_0edba3a82f4020::t_f8dc425aca3a2d 202,239-240,274
+  s_0edba3a82f4020::t_4561f52c39cbee 199-201,203-238,241-273,275-305
+package.json
+  s_0edba3a82f4020::t_af38a43aca5819 3
+src/init_content.ts
+  s_0edba3a82f4020::t_7d0446e13073ba 228-229,236,251,338
+docs/migration.md
+  s_0edba3a82f4020::t_af38a43aca5819 10
+README.md
+  s_0edba3a82f4020::t_af38a43aca5819 14
+aie.config.json
+  s_0edba3a82f4020::t_4561f52c39cbee 1-119
+test/init.test.cjs
+  s_0edba3a82f4020::t_7e17ca54823ff6 284-285,307,322,330
+.opencode/commands/make-it-so.md
+  s_0edba3a82f4020::t_f8dc425aca3a2d 3,18,23
+  s_0edba3a82f4020::t_4561f52c39cbee 1-2,4-17,19-22,24-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.1",
+  "base_commit_sha": "70f612e51957e2a1d7394b5b656b511d12d40ea9",
+  "prompts": {},
+  "sessions": {
+    "s_0edba3a82f4020": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e543c-fbc9-7f42-a75f-37045c3013d6",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
