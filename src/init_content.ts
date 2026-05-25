@@ -86,7 +86,7 @@ function renderMakeItSoPreStartText(config: Config): string {
 
 function buildWorkCycleText(config: Config): string {
   const shipping = config.autonomousMode
-    ? 'commit -> push -> ready-for-review pull request with issue closure -> `aie pr gate <pr>` to request reviewers, wait for configured review gates, and check status -> address feedback -> merge -> `aie complete <issue>` -> update base -> repeat'
+    ? 'commit -> push -> non-draft, ready-for-review pull request with issue closure -> `aie pr gate <pr>` to request reviewers, wait for configured review gates, and check status -> address feedback -> merge -> `aie complete <issue>` -> update base -> repeat'
     : 'stop before commit, push, pull request creation, or merge';
   return `\`aie start next\` or resume active issue -> \`aie view <issue>\` -> branch check/create -> implement -> tests/audits/configured gates -> ${shipping}.`;
 }

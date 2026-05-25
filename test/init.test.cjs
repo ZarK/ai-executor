@@ -323,7 +323,7 @@ describe('init service', () => {
     assert.match(command, /Use `aie pr view <pr> --json`, `aie pr gate <pr>`, and `aie pr body <issue>` for pull request state instead of raw `gh pr view` review\/comment payloads whenever possible/);
     assert.match(command, /no linked worktree is in use/);
     assert.match(command, /tests\/audits\/configured gates/);
-    assert.match(command, /ready-for-review pull request with issue closure -> `aie pr gate <pr>` to request reviewers, wait for configured review gates, and check status/);
+    assert.match(command, /non-draft, ready-for-review pull request with issue closure -> `aie pr gate <pr>` to request reviewers, wait for configured review gates, and check status/);
     assert.match(command, /open the non-draft, ready-for-review pull request/);
     assert.match(command, /merge once repository policy, CI, required tests, and configured gates are satisfied/);
     assert.match(command, /configured gates cannot run/);
