@@ -1,0 +1,21 @@
+test/init.test.cjs
+  s_310a0874da1bb6::t_493c5159fbf42f 326
+src/init_content.ts
+  s_310a0874da1bb6::t_f237cede27a896 89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.1",
+  "base_commit_sha": "39fb202a9c59171dad2327c5d336f55809516691",
+  "prompts": {},
+  "sessions": {
+    "s_310a0874da1bb6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e60de-46de-7661-b528-00a3eebaf321",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Tjalve Aarflot <tjalve.github@proton.me>"
+    }
+  }
+}
